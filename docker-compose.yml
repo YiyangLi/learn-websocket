@@ -1,0 +1,23 @@
+version: "3.5"
+
+services:
+  redis:
+    container_name: redis_dev
+    image: redis:7.0-alpine
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning
+    ports:
+      - '6379:6379'
+    volumes: 
+      - cache:/data
+    networks:
+      - dev
+
+networks:
+  dev:
+    name: dev
+    driver: bridge
+
+volumes:
+  cache:
+    driver: local

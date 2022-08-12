@@ -3,7 +3,7 @@
 ## Requirements
 
 Build a simple chat application using Redis.
-[ ] Build a websocket server in node that publishes messages to and subscribes messages from Redis
+[x] Build a websocket server in node that publishes messages to and subscribes messages from Redis
 [ ] Add an HAProxy for layer-7 Load Balancer
 [ ] Include the redis, HAProxy and N web servers in a docker-compose file.
 [ ] Build a sample client that could send massive messages, each message is randomly generated.
@@ -11,11 +11,16 @@ Build a simple chat application using Redis.
 
 ## Technical details
 
+### Feature
+
+- Friend another person online, so that you can message them. 
+- Join a channel, so that you could *start to* get messages sent to the channel.
+
 ### Limitation
 In version 1, I will only focus on real time messenging, websocket and redis' pub-sub feature. It doesn't come with the following features.
 
-- No Login, no identity, no friendship. Anyone who can access to the servers can join the chat, message to anyone or any group.
-- Historical messages. When a client is offline, and misses the messages in a 1:1 chat or a group chat. They can't get the messages back. 
+- No Login, no identity. Anyone who can access to the servers can join the chat, message to anyone or any channel.
+- Historical messages. When a client is offline, and misses the messages in a 1:1 chat or a group chat. They can't get the messages back.
 - Messages Synchronization. When a client joins the server, old messages are not replayed. However, if multiple clients join using the same username, they all will receive the messages delivered to the user. Since there's no authentication, it is an eavesdropping.
 - When a server dies, clients have to join again. The HAProxy is not as smart as zookeeper, who can assign a new server to clients.
 - Users don't know if the destination is online or not. A message is possibly published to a channel without subscribers.
